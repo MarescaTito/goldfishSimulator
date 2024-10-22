@@ -39,7 +39,7 @@ public class GameState {
             if(toAdd.spell instanceof LeylineOfResonance) {
                 leylines+=1;
             } else {
-                hand.add(this.deck.removeLast());
+                hand.add(toAdd);
             }
         }
     }

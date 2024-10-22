@@ -7,15 +7,8 @@ import java.util.*;
 
 //TODO: IMPLEMENT LEYLINE
 public class GoldfishSimulator {
-    List<Card> deck;
-
-    public GoldfishSimulator(List<Card> deck) {
-        this.deck = deck;
-    }
-
-    public int turnsToWin() {
-        List<Card> currDeck = new LinkedList<Card>(deck);
-        Collections.shuffle(currDeck);
+    public static int turnsToWin(List<Card> deck) {
+        List<Card> currDeck = new LinkedList<>(deck);
 
         GameState startingState = new GameState(currDeck);
         List<GameState> frontier = new LinkedList<>();
