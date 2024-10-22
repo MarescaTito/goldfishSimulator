@@ -21,6 +21,10 @@ public class MightOfTheMeek extends Spell {
 
     @Override
     public Set<GameState> getMutatedGameStates(GameState gameState) {
+        if(gameState.deck.isEmpty()) {
+            return new HashSet<>();
+        }
+
         Set<GameState> toReturn = new HashSet<>();
         GameState paid = getGameStateWithPaidCosts(gameState);
 

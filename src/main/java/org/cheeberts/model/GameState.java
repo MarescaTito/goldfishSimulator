@@ -2,6 +2,7 @@ package org.cheeberts.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.cheeberts.exception.DeckOutException;
 import org.cheeberts.model.Creatures.Bear;
 import org.cheeberts.model.Creatures.CacophonyScamp;
 import org.cheeberts.model.Creatures.Creature;
@@ -62,7 +63,10 @@ public class GameState {
         this.hand = new LinkedList<>(gameState.hand);
     }
 
-    public void startTurn() {
+    public void startTurn() throws DeckOutException {
+        if(deck.isEmpty()) {
+            throw new DeckOutException("Drawing with empty deck");
+        }
         turn+=1;
         untappedLands = untappedLands + tappedLands;
         tappedLands = 0;

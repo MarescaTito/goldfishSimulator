@@ -20,6 +20,7 @@ public class GoldfishSimulator {
 
         while(true) {
             Set<GameState> seen = new HashSet<>();
+            frontier = new LinkedList<>(frontier.stream().filter(g -> !g.deck.isEmpty()).toList());
             for(GameState s : frontier) {
                 s.startTurn();
             }
