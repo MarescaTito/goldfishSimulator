@@ -14,4 +14,9 @@ public class MonstrousRage extends BuffSpell {
         toBuff.oneTurnBuffs += 2;
         toBuff.respondToTarget();
     }
+
+    @Override
+    public MonstrousRage deepCopy() {
+        return new MonstrousRage();
+    }
 }

@@ -13,4 +13,9 @@ public class EmberheartChallengerSpell extends CreatureSpell {
     public Creature summonCreature() {
         return new EmberheartChallenger();
     }
+
+    @Override
+    public EmberheartChallengerSpell deepCopy() {
+        return new EmberheartChallengerSpell();
+    }
 }

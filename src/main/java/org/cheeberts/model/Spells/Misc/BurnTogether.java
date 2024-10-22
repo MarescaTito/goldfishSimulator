@@ -1,5 +1,6 @@
 package org.cheeberts.model.Spells.Misc;
 
+import org.cheeberts.model.Creatures.Bear;
 import org.cheeberts.model.Creatures.CacophonyScamp;
 import org.cheeberts.model.Creatures.Creature;
 import org.cheeberts.model.Creatures.HeartfireHero;
@@ -13,6 +14,10 @@ import java.util.Set;
 public class BurnTogether extends Spell {
     public BurnTogether() {
         this.manaCost = 1;
+    }
+
+    public BurnTogether deepCopy() {
+        return new BurnTogether();
     }
 
     @Override
@@ -37,6 +42,9 @@ public class BurnTogether extends Spell {
                 }
 
                 toAdd.creatures.remove(toFling);
+                for(int j = 0; j < toFling.bearsToProduce; j++) {
+                    toAdd.creatures.add(new Bear());
+                }
 
                 toReturn.add(toAdd);
             }

@@ -2,6 +2,9 @@ package org.cheeberts.service;
 
 import org.cheeberts.model.Card;
 import org.cheeberts.model.GameState;
+import org.cheeberts.model.Spells.BuffSpells.BuffSpell;
+import org.cheeberts.model.Spells.Misc.MightOfTheMeek;
+import org.cheeberts.model.Spells.Spell;
 
 import java.util.*;
 
@@ -32,23 +35,45 @@ public class GoldfishSimulator {
                 seen.add(popped);
 
                 Set<GameState> toAdd = new HashSet<>();
-
                 if(!popped.attacked) {
                     toAdd.addAll(popped.attack());
                 }
-
-                for(int i = 0;  i<popped.hand.size(); i++) {
-                    if(popped.hand.get(i).spell != null) {
-                        GameState playedCard = new GameState(popped);
-                        playedCard.hand.remove(i);
-                        toAdd.addAll(popped.hand.get(i).spell.getMutatedGameStates(playedCard));
-                    }
-                }
+                toAdd.addAll(playEachSpell(popped));
 
                 frontier.addAll(toAdd);
             }
-
             frontier = new LinkedList<>(seen);
         }
     }
+
+    private static Set<GameState> playEachSpell(GameState gameState) {
+        Set<GameState> toReturn = new HashSet<>();
+
+        for(int i = 0;  i<gameState.hand.size(); i++) {
+            Spell toPlay = gameState.hand.get(i).spell;
+            if(toPlay != null) {
+                GameState playedCard = new GameState(gameState);
+                playedCard.hand.remove(i);
+
+                toReturn.addAll(toPlay.getMutatedGameStates(playedCard));
+
+                if(toPlay instanceof BuffSpell || toPlay instanceof MightOfTheMeek) {
+                    Spell freeSpell = toPlay.deepCopy();
+                    freeSpell.manaCost = 0;
+
+                    for (int j = 0; j < playedCard.leylines; j++) {
+                        Set<GameState> temp = new HashSet<>();
+                        for (GameState g : toReturn) {
+                            temp.addAll(freeSpell.getMutatedGameStates(g));
+                        }
+                        toReturn = temp;
+                    }
+                }
+            }
+        }
+
+        return toReturn;
+    }
 }
+
+

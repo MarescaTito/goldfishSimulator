@@ -20,7 +20,10 @@ public abstract class BuffSpell extends Spell {
                 GameState toAdd = new GameState(paid);
                 buffCreature(toAdd.creatures.get(i));
                 for(Creature c : toAdd.creatures) {
-                    c.respondToNonCreatureSpell();
+                    //We spoof leyline by "casting" a free version of the spell, will need to change if there is a free spell later
+                    if(this.manaCost != 0) {
+                        c.respondToNonCreatureSpell();
+                    }
                 }
                 toReturn.add(toAdd);
             }

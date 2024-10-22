@@ -13,4 +13,9 @@ public class HeartfireHeroSpell extends CreatureSpell {
     public Creature summonCreature() {
         return new HeartfireHero();
     }
+
+    @Override
+    public HeartfireHeroSpell deepCopy() {
+        return new HeartfireHeroSpell();
+    }
 }

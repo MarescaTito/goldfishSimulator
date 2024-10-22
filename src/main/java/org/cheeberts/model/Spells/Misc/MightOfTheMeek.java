@@ -15,6 +15,10 @@ public class MightOfTheMeek extends Spell {
         this.manaCost = 1;
     }
 
+    public MightOfTheMeek deepCopy() {
+        return new MightOfTheMeek();
+    }
+
     @Override
     public Set<GameState> getMutatedGameStates(GameState gameState) {
         Set<GameState> toReturn = new HashSet<>();

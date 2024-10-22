@@ -12,6 +12,10 @@ public class LeylineOfResonance extends Spell {
         this.manaCost = 4;
     }
 
+    public LeylineOfResonance deepCopy() {
+        return new LeylineOfResonance();
+    }
+
     @Override
     public Set<GameState> getMutatedGameStates(GameState gameState) {
         Set<GameState> toReturn = new HashSet<>();

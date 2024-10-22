@@ -13,4 +13,9 @@ public class SlickshotShowoffSpell extends CreatureSpell {
     public Creature summonCreature() {
         return new SlickshotShowoff();
     }
+
+    @Override
+    public SlickshotShowoffSpell deepCopy() {
+        return new SlickshotShowoffSpell();
+    }
 }

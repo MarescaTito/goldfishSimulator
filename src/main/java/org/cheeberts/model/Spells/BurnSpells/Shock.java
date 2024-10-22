@@ -5,4 +5,9 @@ public class Shock extends BurnSpell {
         this.damage = 2;
         this.manaCost = 1;
     }
+
+    @Override
+    public Shock deepCopy() {
+        return new Shock();
+    }
 }

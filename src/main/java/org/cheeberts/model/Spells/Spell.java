@@ -8,6 +8,7 @@ public abstract class Spell {
     public int manaCost;
 
     public abstract Set<GameState> getMutatedGameStates(GameState gameState);
+    public abstract Spell deepCopy();
 
     public GameState getGameStateWithPaidCosts(GameState gameState) {
         GameState toReturn = new GameState(gameState);

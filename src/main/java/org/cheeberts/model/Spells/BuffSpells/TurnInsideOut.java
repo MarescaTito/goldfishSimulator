@@ -16,4 +16,9 @@ public class TurnInsideOut extends BuffSpell {
         toBuff.respondToTarget();
 
     }
+
+    @Override
+    public TurnInsideOut deepCopy() {
+        return new TurnInsideOut();
+    }
 }

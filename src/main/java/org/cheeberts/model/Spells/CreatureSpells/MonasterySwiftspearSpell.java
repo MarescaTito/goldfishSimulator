@@ -13,4 +13,9 @@ public class MonasterySwiftspearSpell extends CreatureSpell {
     public Creature summonCreature() {
         return new MonasterySwiftspear();
     }
+
+    @Override
+    public MonasterySwiftspearSpell deepCopy() {
+        return new MonasterySwiftspearSpell();
+    }
 }
