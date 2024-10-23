@@ -19,15 +19,13 @@ public class LeylineOfResonance extends Spell {
     @Override
     public Set<GameState> getMutatedGameStates(GameState gameState) {
         Set<GameState> toReturn = new HashSet<>();
-        GameState paid = getGameStateWithPaidCosts(gameState);
+        GameState paid = new GameState(gameState);
 
-        if(paid != null) {
-            for(Creature c : paid.creatures) {
-                c.respondToNonCreatureSpell();
-            }
-            paid.leylines+=1;
-            toReturn.add(paid);
+        for (Creature c : paid.creatures) {
+            c.respondToNonCreatureSpell();
         }
+        paid.leylines+=1;
+        toReturn.add(paid);
 
         return toReturn;
     }

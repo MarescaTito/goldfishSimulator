@@ -59,4 +59,8 @@ public class DuskmourneLeyline {
 
         return deck;
     }
+
+    public static double landRatio() {
+        return 17.0/60.0;
+    }
 }

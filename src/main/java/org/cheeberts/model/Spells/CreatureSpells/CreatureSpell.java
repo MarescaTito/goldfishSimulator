@@ -8,19 +8,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class CreatureSpell extends Spell {
-    Creature toSummon;
-
     public abstract Creature summonCreature();
 
     @Override
     public Set<GameState> getMutatedGameStates(GameState gameState) {
         Set<GameState> toReturn = new HashSet<>();
-        GameState paid = getGameStateWithPaidCosts(gameState);
+        GameState paid = new GameState(gameState);
 
-        if(paid != null) {
-            paid.creatures.add(summonCreature());
-            toReturn.add(paid);
-        }
+        paid.creatures.add(summonCreature());
+        toReturn.add(paid);
 
         return toReturn;
     }

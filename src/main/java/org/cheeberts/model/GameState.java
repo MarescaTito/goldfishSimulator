@@ -94,47 +94,51 @@ public class GameState {
         HashSet<GameState> toReturn = new HashSet<>();
         GameState g = new GameState(this);
         g.attacked = true;
-
         for(Creature c : g.creatures) {
             if(!c.enteredThisTurn || c.haste) {
                 g.lifetotal -= c.getTotalPower();
             }
         }
-
         toReturn.add(g);
 
         while(true) {
             int startingSize = toReturn.size();
-
             HashSet<GameState> toAdd = new HashSet<>();
 
             for(GameState s : toReturn) {
                 GameState toScamp = new GameState(s);
-
                 for(Creature c : toScamp.creatures) {
                     if(c instanceof CacophonyScamp) {
                         toScamp.creatures.remove(c);
-
                         toScamp.lifetotal -= c.getTotalPower();
-
                         for (int i = 0; i < c.bearsToProduce; i++) {
                             toScamp.creatures.add(new Bear());
                         }
-
                         break;
                     }
                 }
-
                 toAdd.add(toScamp);
             }
 
             toReturn.addAll(toAdd);
-
             if(startingSize == toReturn.size()) {
                 break;
             }
         }
         return toReturn;
+    }
+
+    public GameState getGameStateWithPaidCosts(GameState gameState, int manaCost) {
+        GameState toReturn = new GameState(gameState);
+
+        if(toReturn.untappedLands >= manaCost) {
+            toReturn.untappedLands -= manaCost;
+            toReturn.tappedLands += manaCost;
+
+            return toReturn;
+        } else {
+            return null;
+        }
     }
 
     @Override

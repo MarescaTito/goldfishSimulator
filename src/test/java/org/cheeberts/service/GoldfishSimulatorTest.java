@@ -7,6 +7,7 @@ import org.cheeberts.model.Spells.CreatureSpells.CacophonyScampSpell;
 import org.cheeberts.model.Spells.CreatureSpells.HeartfireHeroSpell;
 import org.cheeberts.model.Spells.CreatureSpells.MonasterySwiftspearSpell;
 import org.cheeberts.model.Spells.Misc.BurnTogether;
+import org.cheeberts.model.Spells.Misc.MightOfTheMeek;
 import org.cheeberts.model.Spells.NonCreaturePermanents.LeylineOfResonance;
 import org.junit.jupiter.api.Test;
 
@@ -85,7 +86,7 @@ public class GoldfishSimulatorTest {
     }
 
     @Test
-    void swiftspearsInsideOutsAndLeylineWinInFour() {
+    void swiftspearsInsideOutsAndLeylineWinInSix() {
         List<Card> deck = new LinkedList<>();
 
         for(int i = 0; i < 20; i++) {
@@ -141,7 +142,7 @@ public class GoldfishSimulatorTest {
     }
 
     @Test
-    void heartfireHeroInsideOutBurnTogetherWinInNine() {
+    void heartfireHeroInsideOutWinInEight() {
         List<Card> deck = new LinkedList<>();
 
         for(int i = 0; i < 20; i++) {
@@ -152,7 +153,7 @@ public class GoldfishSimulatorTest {
         deck.add(new Card(new TurnInsideOut()));
         deck.add(new Card(new LeylineOfResonance()));
 
-        assertEquals(9, GoldfishSimulator.turnsToWin(deck));
+        assertEquals(8, GoldfishSimulator.turnsToWin(deck));
     }
 
     @Test
@@ -173,6 +174,21 @@ public class GoldfishSimulatorTest {
         }
 
         assertEquals(2, GoldfishSimulator.turnsToWin(deck));
+    }
+
+    @Test
+    void heartfireHeroMightOfTheMeekWinInTen() {
+        List<Card> deck = new LinkedList<>();
+
+        for(int i = 0; i < 30; i++) {
+            deck.add(new Card(null));
+        }
+
+        deck.add(new Card(new HeartfireHeroSpell()));
+        deck.add(new Card(new MightOfTheMeek()));
+        deck.add(new Card(new LeylineOfResonance()));
+
+        assertEquals(10, GoldfishSimulator.turnsToWin(deck));
     }
 
 

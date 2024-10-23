@@ -13,21 +13,20 @@ public abstract class BuffSpell extends Spell {
     @Override
     public Set<GameState> getMutatedGameStates(GameState gameState) {
         Set<GameState> toReturn = new HashSet<>();
-        GameState paid = getGameStateWithPaidCosts(gameState);
+        GameState paid = new GameState(gameState);
 
-        if(paid != null) {
-            for(int i = 0; i < paid.creatures.size(); i++) {
-                GameState toAdd = new GameState(paid);
-                buffCreature(toAdd.creatures.get(i));
-                for(Creature c : toAdd.creatures) {
-                    //We spoof leyline by "casting" a free version of the spell, will need to change if there is a free spell later
-                    if(this.manaCost != 0) {
-                        c.respondToNonCreatureSpell();
-                    }
+        for(int i = 0; i < paid.creatures.size(); i++) {
+            GameState toAdd = new GameState(paid);
+            buffCreature(toAdd.creatures.get(i));
+            for(Creature c : toAdd.creatures) {
+                //We spoof leyline by "casting" a free version of the spell, will need to change if there is a free spell later
+                if(this.manaCost != 0) {
+                    c.respondToNonCreatureSpell();
                 }
-                toReturn.add(toAdd);
             }
+            toReturn.add(toAdd);
         }
+
 
         return toReturn;
     }
