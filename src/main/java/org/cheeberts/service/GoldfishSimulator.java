@@ -4,6 +4,7 @@ import org.cheeberts.model.Card;
 import org.cheeberts.model.GameState;
 import org.cheeberts.model.Spells.BuffSpells.BuffSpell;
 import org.cheeberts.model.Spells.CreatureSpells.CreatureSpell;
+import org.cheeberts.model.Spells.Misc.BurnTogether;
 import org.cheeberts.model.Spells.Misc.MightOfTheMeek;
 import org.cheeberts.model.Spells.Spell;
 
@@ -42,7 +43,13 @@ public class GoldfishSimulator {
             //Attack
             Set<GameState> attacked = new HashSet<>();
             for(GameState g : seen) {
-                attacked.addAll(g.attack());
+                Set<GameState> toAdd = g.attack();
+                for(GameState a : toAdd) {
+                    if(a.lifetotal <= 0) {
+                        return a.turn;
+                    }
+                }
+                attacked.addAll(toAdd);
             }
             frontier = new LinkedList<>(attacked);
             seen = new HashSet<>();
@@ -57,7 +64,7 @@ public class GoldfishSimulator {
                     continue;
                 }
                 seen.add(popped);
-                frontier.addAll(playEachSpell(popped));
+                frontier.addAll(onlyPlayFling(popped));
             }
 
             frontier = new LinkedList<>(seen.stream().filter(g -> !isEndStateSilly(g)).toList());
@@ -89,6 +96,25 @@ public class GoldfishSimulator {
                         toAdd = temp;
                     }
                 }
+            }
+            toReturn.addAll(toAdd);
+        }
+
+        return toReturn;
+    }
+
+    private static Set<GameState> onlyPlayFling(GameState gameState) {
+        Set<GameState> toReturn = new HashSet<>();
+
+        for(int i = 0;  i<gameState.hand.size(); i++) {
+            Set<GameState> toAdd = new HashSet<>();
+            Spell toPlay = gameState.hand.get(i).spell;
+            if(toPlay != null && toPlay instanceof BurnTogether && toPlay.manaCost <= gameState.untappedLands) {
+                GameState playedCard = new GameState(gameState);
+                playedCard.hand.remove(i);
+                playedCard = playedCard.getGameStateWithPaidCosts(playedCard, toPlay.manaCost);
+
+                toAdd.addAll(toPlay.getMutatedGameStates(playedCard));
             }
             toReturn.addAll(toAdd);
         }

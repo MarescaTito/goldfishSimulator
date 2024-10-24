@@ -3,6 +3,7 @@ package org.cheeberts.model.Creatures;
 public class SlickshotShowoff extends Creature {
 
     public SlickshotShowoff() {
+        super();
         basePower = 1;
         haste = true;
     }

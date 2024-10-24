@@ -102,7 +102,7 @@ public class GoldfishSimulatorTest {
             deck.add(new Card(new LeylineOfResonance()));
         }
 
-        assertEquals(4, GoldfishSimulator.turnsToWin(deck));
+        assertEquals(6, GoldfishSimulator.turnsToWin(deck));
     }
 
     @Test
