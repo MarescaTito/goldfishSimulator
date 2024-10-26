@@ -3,10 +3,10 @@ package org.cheeberts.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.cheeberts.exception.DeckOutException;
-import org.cheeberts.model.Creatures.Bear;
-import org.cheeberts.model.Creatures.CacophonyScamp;
-import org.cheeberts.model.Creatures.Creature;
-import org.cheeberts.model.Spells.NonCreaturePermanents.LeylineOfResonance;
+import org.cheeberts.model.creatures.Bear;
+import org.cheeberts.model.creatures.CacophonyScamp;
+import org.cheeberts.model.creatures.Creature;
+import org.cheeberts.model.spells.nonCreaturePermanents.LeylineOfResonance;
 import org.cheeberts.util.CardComparator;
 import org.cheeberts.util.CreatureComparator;
 
@@ -74,7 +74,6 @@ public class GameState {
         attacked = false;
 
         hand.add(deck.removeLast());
-
         for(Card c : hand) {
             if(c.spell == null) {
                 hand.remove(c);
@@ -83,6 +82,7 @@ public class GameState {
                 break;
             }
         }
+        hand = new LinkedList<>(hand.stream().filter(c -> !c.impulsed).toList());
 
         for(Creature c : creatures) {
             c.cleanup();

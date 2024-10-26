@@ -1,14 +1,16 @@
 package org.cheeberts.service;
 
 import org.cheeberts.model.Card;
-import org.cheeberts.model.Spells.BuffSpells.TurnInsideOut;
-import org.cheeberts.model.Spells.BurnSpells.Shock;
-import org.cheeberts.model.Spells.CreatureSpells.CacophonyScampSpell;
-import org.cheeberts.model.Spells.CreatureSpells.HeartfireHeroSpell;
-import org.cheeberts.model.Spells.CreatureSpells.MonasterySwiftspearSpell;
-import org.cheeberts.model.Spells.Misc.BurnTogether;
-import org.cheeberts.model.Spells.Misc.MightOfTheMeek;
-import org.cheeberts.model.Spells.NonCreaturePermanents.LeylineOfResonance;
+import org.cheeberts.model.spells.buffSpells.TurnInsideOut;
+import org.cheeberts.model.spells.burnSpells.Shock;
+import org.cheeberts.model.spells.creatureSpells.CacophonyScampSpell;
+import org.cheeberts.model.spells.creatureSpells.EmberheartChallengerSpell;
+import org.cheeberts.model.spells.creatureSpells.HeartfireHeroSpell;
+import org.cheeberts.model.spells.creatureSpells.MonasterySwiftspearSpell;
+import org.cheeberts.model.spells.misc.BurnTogether;
+import org.cheeberts.model.spells.misc.MightOfTheMeek;
+import org.cheeberts.model.spells.nonCreaturePermanents.LeylineOfResonance;
+import org.cheeberts.spells.TwentyDamageForOneMana;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -191,5 +193,18 @@ public class GoldfishSimulatorTest {
         assertEquals(10, GoldfishSimulator.turnsToWin(deck));
     }
 
+    @Test
+    void emberHeartImpulseDraws() {
+        List<Card> deck = new LinkedList<>();
+
+        deck.add(new Card(new TwentyDamageForOneMana()));
+        for(int i = 0; i < 7; i++) {
+            deck.add(new Card(null));
+        }
+        deck.add(new Card(new TurnInsideOut()));
+        deck.add(new Card(new EmberheartChallengerSpell()));
+
+        assertEquals(3, GoldfishSimulator.turnsToWin(deck));
+    }
 
 }

@@ -2,11 +2,12 @@ package org.cheeberts.service;
 
 import org.cheeberts.model.Card;
 import org.cheeberts.model.GameState;
-import org.cheeberts.model.Spells.BuffSpells.BuffSpell;
-import org.cheeberts.model.Spells.CreatureSpells.CreatureSpell;
-import org.cheeberts.model.Spells.Misc.BurnTogether;
-import org.cheeberts.model.Spells.Misc.MightOfTheMeek;
-import org.cheeberts.model.Spells.Spell;
+import org.cheeberts.model.spells.buffSpells.BuffSpell;
+import org.cheeberts.model.spells.creatureSpells.CreatureSpell;
+import org.cheeberts.model.spells.misc.BurnTogether;
+import org.cheeberts.model.spells.misc.MightOfTheMeek;
+import org.cheeberts.model.spells.Spell;
+import org.cheeberts.util.LifeTotalFilter;
 
 import java.util.*;
 
@@ -67,7 +68,9 @@ public class GoldfishSimulator {
                 frontier.addAll(onlyPlayFling(popped));
             }
 
-            frontier = new LinkedList<>(seen.stream().filter(g -> !isEndStateSilly(g)).toList());
+            Set<GameState> filtered = LifeTotalFilter.lifeTotalFilter(seen.stream().filter(g -> !isEndStateSilly(g)).toList());
+
+            frontier = new LinkedList<>(filtered);
         }
     }
 

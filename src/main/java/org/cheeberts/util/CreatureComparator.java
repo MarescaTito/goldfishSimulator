@@ -2,7 +2,7 @@ package org.cheeberts.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.cheeberts.model.Creatures.Creature;
+import org.cheeberts.model.creatures.Creature;
 
 import java.util.Comparator;
 

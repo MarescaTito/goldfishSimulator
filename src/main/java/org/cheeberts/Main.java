@@ -1,6 +1,7 @@
 package org.cheeberts;
 
-import org.cheeberts.constants.DuskmourneLeyline;
+import org.cheeberts.constants.deckList.DuskmourneLeylineAllInOnTurnTwo;
+import org.cheeberts.constants.deckList.DuskmourneLeylineSubLightningStrike;
 import org.cheeberts.model.Card;
 import org.cheeberts.service.GoldfishSimulator;
 
@@ -16,7 +17,7 @@ public class Main {
                 System.out.println(i);
             }
 
-            winTurns[GoldfishSimulator.turnsToWin(getSmoothedDeck(DuskmourneLeyline.getDeck(), DuskmourneLeyline.landRatio()))]++;
+            winTurns[GoldfishSimulator.turnsToWin(getSmoothedDeck(DuskmourneLeylineAllInOnTurnTwo.getDeck(), DuskmourneLeylineAllInOnTurnTwo.landRatio()))]++;
         }
 
         for(int i : winTurns) {
