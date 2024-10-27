@@ -11,7 +11,6 @@ import org.cheeberts.util.LifeTotalFilter;
 
 import java.util.*;
 
-//TODO: IMPLEMENT LEYLINE
 public class GoldfishSimulator {
     public static int turnsToWin(List<Card> deck) {
         List<Card> currDeck = new LinkedList<>(deck);
